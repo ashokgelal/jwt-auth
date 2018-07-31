@@ -102,7 +102,8 @@ class JWT
     {
         $this->requireToken();
 
-        return $this->manager->customClaims($this->getCustomClaims())
+        // hack alert: quick fix for refresh
+        return $this->manager->customClaims($this->getClaimsArray($this->authenticate()))
                              ->refresh($this->token, $forceForever, $resetClaims)
                              ->get();
     }
